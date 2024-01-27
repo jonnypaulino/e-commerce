@@ -1,0 +1,138 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Teclado Mecânico",
+      "price": 99.99,
+      "date": "2024-01-26",
+      "imagem": [
+        "https://cdn.awsli.com.br/600x700/2306/2306739/produto/148826899/f201483487.jpg",
+        "https://images-americanas.b2w.io/produtos/3677372308/imagens/teclado-mecanico-gamer-motospeed-ck61-rgb-switch-outemu-red-us-com-fio/3677372308_1_large.jpg"
+      ],
+      "description": "Teclado mecânico retroiluminado",
+      "type": "Acessório"
+    },
+    {
+      "id": 2,
+      "name": "Mouse Gamer",
+      "price": 49.99,
+      "date": "2024-01-26",
+      "imagem": [
+        "https://a-static.mlcdn.com.br/450x450/mouse-gamer-luminoso-usb-e-rgb/inoveaqui/16033937231/7a5d258eb83c3b3e08c993820cfa85d0.jpeg"
+      ],
+      "description": "Mouse gamer com sensor de alta precisão",
+      "type": "Acessório"
+    },
+    {
+      "id": 3,
+      "name": "Monitor Ultrawide",
+      "price": 299.99,
+      "date": "2024-01-26",
+      "imagem": [
+        "https://images-americanas.b2w.io/produtos/7474062985/imagens/monitor-ultrawide-gamer-lg-26wq500-b-26-ips-full-hd-2560x1080-hdr10-freesync-75hz-1ms/7474062985_1_large.jpg"
+      ],
+      "description": "Monitor ultrawide de 34 polegadas",
+      "type": "Acessório"
+    },
+    {
+      "id": 4,
+      "name": "Fone de Ouvido Bluetooth",
+      "price": 79.99,
+      "date": "2024-01-26",
+      "imagem": [
+        "https://images-americanas.b2w.io/produtos/6782931781/imagens/fone-de-ouvido-air-dots-2-bluetooth-usb-sem-fio-com-case/6782931802_1_large.jpg"
+      ],
+      "description": "Fone de ouvido sem fio com cancelamento de ruído",
+      "type": "Acessório"
+    },
+    {
+      "id": 5,
+      "name": "Cadeira Gamer",
+      "price": 199.99,
+      "date": "2024-01-26",
+      "imagem": [
+        "https://static.mobly.com.br/p/LEX-Cadeira-Gamer-Titans-Atlas-Preta-e-Branca-3130-729188-2-zoom.jpg"
+      ],
+      "description": "Cadeira ergonômica para gamers",
+      "type": "Acessório"
+    },
+    {
+      "id": 6,
+      "name": "Hub USB",
+      "price": 19.99,
+      "date": "2024-01-26",
+      "imagem": [
+        "https://img.kalunga.com.br/fotosdeprodutos/609855z_2.jpg"
+      ],
+      "description": "Hub USB de alta velocidade",
+      "type": "Acessório"
+    },
+    {
+      "id": 7,
+      "name": "MousePad",
+      "price": 9.99,
+      "date": "2024-01-26",
+      "imagem": [
+        "https://m.media-amazon.com/images/I/81iKwKUzQiL.__AC_SX300_SY300_QL70_ML2_.jpg",
+        "https://m.media-amazon.com/images/I/81eAVZDZq7L._AC_SL1500_.jpg"
+      ],
+      "description": "Tapete para mouse com base antiderrapante",
+      "type": "Acessório"
+    },
+    {
+      "id": 8,
+      "name": "Suporte para Notebook",
+      "price": 29.99,
+      "date": "2024-01-26",
+      "imagem": [
+        "https://d1sfzvg6s5tf2e.cloudfront.net/Custom/Content/Products/28/12/2812_suporte-ergonomico-pnotebooktabl-ac376_z1_638007587345059819.jpg"
+      ],
+      "description": "Suporte ajustável para notebook",
+      "type": "Acessório"
+    },
+    {
+      "id": 9,
+      "name": "Luminária LED",
+      "price": 14.99,
+      "date": "2024-01-26",
+      "imagem": [
+        "https://alojinhaunhaseacessorios.com.br/wp-content/uploads/2023/03/Luminaria-Led-De-Mesa-Branca-Braco-Flexivel-5.webp"
+      ],
+      "description": "Luminária LED para iluminação de mesa",
+      "type": "Acessório"
+    },
+    {
+      "id": 10,
+      "name": "Mochila para Notebook",
+      "price": 39.99,
+      "date": "2024-01-26",
+      "imagem": [
+        "https://images.tcdn.com.br/img/img_prod/458691/mochila_para_notebook_personalizada_mc223_1831_2_20200227155226.jpg"
+      ],
+      "description": "Mochila resistente com compartimento para notebook",
+      "type": "Acessório"
+    },
+    {
+      "id": 11,
+      "name": "Webcam HD",
+      "price": 49.99,
+      "date": "2024-01-26",
+      "imagem": [
+        "https://m.media-amazon.com/images/I/51OEgiWAoKL._AC_UF1000,1000_QL80_.jpg"
+      ],
+      "description": "Webcam de alta definição para videoconferências",
+      "type": "Acessório"
+    },
+    {
+      "id": 12,
+      "name": "Carregador Portátil",
+      "price": 29.99,
+      "date": "2024-01-26",
+      "imagem": [
+        "https://images-americanas.b2w.io/produtos/51199863/imagens/novo-carregador-portatil-power-bank-original-pineng-10000mah-dual-usb/51199865_1_large.jpg"
+      ],
+      "description": "Carregador portátil para dispositivos eletrônicos",
+      "type": "Acessório"
+    }
+  ]
+}
