@@ -6,13 +6,12 @@ import Cart from "../pages/cart/page";
 const RoutesApp = () => {
 
     return (
-        <BrowserRouter>
             <Routes>
                 <Route element={<ListProducts />} path="/"  />
+
                 <Route element={<Cart />} path="/cart"/>
                 <Route path="/*" element={<div>Pagina não encontrada</div>} />
             </Routes>
-        </BrowserRouter>
     )
 }
 

@@ -1,20 +1,89 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AplicationContext } from "../../context/context";
 import { AplicationTypes } from "../../types/types";
 import { Card } from "primereact/card";
-import { ButtonFloating, Container, Padding } from "../../assets/styles/globalstyles";
+import {
+  ButtonFloating,
+  Container,
+  Padding,
+  Row,
+  RowReponsive,
+} from "../../assets/styles/globalstyles";
 import CardProducts from "./components/CardProducts";
 import { Button } from "primereact/button";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { InputText } from "primereact/inputtext";
+import ModalFilter from "./components/Modal";
+import { Dropdown } from "primereact/dropdown";
+import FiltperChips from "./components/FilterChips";
+import { Form, Formik } from "formik";
 
 const ListProducts = () => {
-    const history = useNavigate()
+  const history = useNavigate();
+  const location = useLocation();
+  const [visible, setvisible] = useState(false);
   const props = useContext(AplicationContext) as AplicationTypes;
+  const searchParams = new URLSearchParams(location.search);
+  const searchQuery = searchParams.get("filterName") || "";
+  const [ordena, setordena] = useState({});
   return (
     <Container>
       <Card>
-        <h2>Produtos eletronicos e acessorios</h2>
+        <RowReponsive justifyContent="space-between" style={{ gap: "8px" }}>
+          <h2>Produtos eletrônicos e acessórios</h2>
+          <Row style={{ gap: "20px" }}>
+            <Formik
+              initialValues={{ filterName: searchQuery }}
+              onSubmit={(values) => {
+                values.filterName
+                  ? history(`/?filterName=${values.filterName}`)
+                  : history("/");
+                window.location.reload();
+              }}
+            >
+              {({ values, handleChange }) => {
+                return (
+                  <Form>
+                    <div className="p-inputgroup flex-1">
+                      <InputText
+                        placeholder="Search"
+                        name="filterName"
+                        value={values.filterName}
+                        onChange={handleChange}
+                      />
+                      <Button icon="pi pi-search" />
+                    </div>
+                  </Form>
+                );
+              }}
+            </Formik>
+            <Button
+              rounded
+              outlined
+              icon="pi pi-filter"
+              onClick={() => setvisible(!visible)}
+            />
+          </Row>
+        </RowReponsive>
         <Padding padding="8px" />
+        <Dropdown
+          optionLabel="name"
+          value={ordena}
+          onChange={(e) => {
+            setordena(e.target.value);
+            props.ordenarList(e.target.value.id);
+          }}
+          placeholder="Ordenar"
+          options={[
+            { id: 1, name: "Menor preço" },
+            { id: 2, name: "Maior Preço" },
+            { id: 3, name: "Mais Recentes" },
+            { id: 4, name: "Mais antigas" },
+          ]}
+        />
+        <Padding padding="8px" />
+        <FiltperChips />
+        <Padding padding="16px" />
         <div className="grid -mt-3 -ml-3 -mr-3">
           {props.products?.items.map((item, index) => {
             return (
@@ -23,11 +92,21 @@ const ListProducts = () => {
               </div>
             );
           })}
+          {props.products?.items?.length === 0 ? (
+            <h2 style={{ margin: "auto" }}>Sem Pordutos</h2>
+          ) : null}
         </div>
       </Card>
       <ButtonFloating>
-        <Button icon="pi pi-cart-plus" onClick={() => history("/cart")} label={props.cart?.itens?.length.toString()} iconPos="right"/>
+        <Button
+          icon="pi pi-cart-plus"
+          onClick={() => history("/cart")}
+          severity="warning"
+          label={props.cart?.itens?.length.toString()}
+          iconPos="right"
+        />
       </ButtonFloating>
+      <ModalFilter visible={visible} onHide={() => setvisible(!visible)} />
     </Container>
   );
 };

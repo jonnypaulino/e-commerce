@@ -9,10 +9,34 @@ interface Props {
 }
 
 const AplicationProvider = ({ children }: Props) => {
-  const { products, addProductCart, cart, deleteItemCart, clearCart} = StateAplication();
+  const {
+    products,
+    addProductCart,
+    cart,
+    deleteItemCart,
+    clearCart,
+    addAmount,
+    filterList,
+    filter,
+    filterListName,
+    ordenarList
+  } = StateAplication();
 
   return (
-    <AplicationContext.Provider value={{ products, addProductCart, cart, deleteItemCart, clearCart }}>
+    <AplicationContext.Provider
+      value={{
+        products,
+        addProductCart,
+        cart,
+        deleteItemCart,
+        clearCart,
+        addAmount,
+        filterList,
+        filter,
+        filterListName,
+        ordenarList
+      }}
+    >
       {children}
     </AplicationContext.Provider>
   );
