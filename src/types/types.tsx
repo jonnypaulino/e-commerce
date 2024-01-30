@@ -8,13 +8,11 @@ export interface AplicationTypes {
   deleteItemCart: (index: number) => void;
   clearCart: () => void;
   addAmount: (id: number, amount: number) => void;
-  filterList: (searchParams: URLSearchParams) => void,
-  filterListName: (name: string) => void, 
-  ordenarList: (value: number) => void,
-  toast: RefObject<Toast>,
-  FinishBuy: () => void
-  CleanFilter: () => void
-
+  filterList: (searchParams: URLSearchParams) => void;
+  ordenarList: (value: number, products: ProductsJson) => void;
+  toast: RefObject<Toast>;
+  FinishBuy: () => void;
+  CleanFilter: () => void;
 }
 
 export interface CartJson {

@@ -31,15 +31,20 @@ export const StateAplication = () => {
     });
   };
   const history = useNavigate();
+
+  //FINALIZA A COMPRA
   const FinishBuy = () => {
     setCart({ itens: [] });
     RemoveCart();
     showBuy();
     setTimeout(() => {
       history("/");
+      window.location.reload()
     }, 1600);
   };
 
+
+  // Limpa o filtro
   const CleanFilter = () => {
     history("/");
     window.location.reload()
@@ -47,6 +52,7 @@ export const StateAplication = () => {
 
   const location = useLocation();
 
+  // adiciona produto ao carrinho
   const addProductCart = (item: CartProductsType) => {
     const isItemInCart = cart?.itens?.some((props) => props.id === item.id);
     const newCart = { ...cart };
@@ -65,6 +71,8 @@ export const StateAplication = () => {
     show();
   };
 
+
+  // altera a quantidade de itens
   const addAmount = (id: number, amount: number) => {
     const newCart = { ...cart };
 
@@ -77,17 +85,23 @@ export const StateAplication = () => {
     SaveCart(newCart);
   };
 
+
+  // deleta um item do carrinho
   const deleteItemCart = (index: number) => {
     const newcart = { ...cart };
     newcart.itens?.splice(index, 1);
     setCart(newcart);
   };
 
+
+  // limpa carrinho
   const clearCart = () => {
     setCart({ itens: [] });
     RemoveCart();
   };
 
+
+  // função para executar o filtro
   const filterList = (searchParams: URLSearchParams) => {
     const name = searchParams.get("filtername");
 
@@ -129,23 +143,13 @@ export const StateAplication = () => {
     setProducts({ ...newProducts, items: filter || [] });
   };
 
-  const filterListName = (name: string) => {
-    const newProducts = { ...productsjson };
-    var filter;
-    if (name !== "") {
-      filter = newProducts.items?.filter((props) =>
-        props?.name.toLowerCase().includes(name)
-      );
-      setProducts({ ...newProducts, items: filter || [] });
-    } else {
-      setProducts({ ...newProducts, items: newProducts.items! });
-    }
-  };
-
-  const ordenarList = (value: number) => {
+  
+  // função de ordenar
+  const ordenarList = (value: number, products: ProductsJson) => {
     const newProducts = { ...products };
 
     if (value === 1) {
+      
       setProducts({
         ...newProducts,
         items: newProducts.items?.sort((a, b) => a.price - b.price)!,
@@ -173,10 +177,14 @@ export const StateAplication = () => {
         )!,
       });
     }
+    return newProducts
   };
 
   useEffect(() => {
+    // ssalvar os dados do json poderia ser uma api
     setProducts(productsjson);
+
+    // verifica se tem filtros
     const searchParams = new URLSearchParams(location.search);
     if (searchParams) {
       filterList(searchParams);
@@ -185,6 +193,7 @@ export const StateAplication = () => {
 
   useEffect(() => {
     if (getCart()) {
+      // armazena os dados da local storage no eestado
       const storedCartObject = JSON.parse(getCart()!);
       setCart(storedCartObject);
     }
@@ -199,7 +208,6 @@ export const StateAplication = () => {
     addAmount,
     filterList,
     toast,
-    filterListName,
     ordenarList,
     FinishBuy,
     CleanFilter,

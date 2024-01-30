@@ -7,10 +7,11 @@ import { Galleria } from "primereact/galleria";
 import { colors } from "../../../../assets/styles/colors";
 import { useContext } from "react";
 import { AplicationContext } from "../../../../context/context";
+import { formatarData } from "../../../../controller/controller";
+import { Chip } from "primereact/chip";
 
 const CardProducts = ({ item }: CardProductsType) => {
-
-  const props = useContext(AplicationContext) as AplicationTypes
+  const props = useContext(AplicationContext) as AplicationTypes;
   const itemTemplate = (item: any) => {
     return (
       <img
@@ -24,6 +25,13 @@ const CardProducts = ({ item }: CardProductsType) => {
   return (
     <Card style={{ height: "100%" }}>
       <Column justifyContent="space-between">
+        <Row justifyContent="space-between">
+          <Chip label={item.type} />
+          <Column justifyContent="center">
+          <p>{formatarData(new Date(item.date))}</p>
+          </Column>
+        </Row>
+        <Padding padding="8px" />
         <Row justifyContent="center">
           <Galleria
             value={item.imagem}
@@ -47,7 +55,11 @@ const CardProducts = ({ item }: CardProductsType) => {
             <Column justifyContent="center">
               <h3 style={{ color: colors.primary }}>R$ {item.price}</h3>
             </Column>
-            <Button label="Comprar" icon="pi pi-cart-plus" onClick={() => props.addProductCart(item)} />
+            <Button
+              label="Comprar"
+              icon="pi pi-cart-plus"
+              onClick={() => props.addProductCart(item)}
+            />
           </Row>
         </Column>
       </Column>

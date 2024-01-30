@@ -1,5 +1,6 @@
 import { Chip } from "primereact/chip";
 import { useLocation } from "react-router-dom";
+import { formatarData } from "../../../../controller/controller";
 
 const FiltperChips = () => {
   const location = useLocation()
@@ -9,13 +10,7 @@ const FiltperChips = () => {
   const queryMaxPrice = searchParams.get("maxPrice")
   const queryMinDate = searchParams.get("minDate")
   const queryMaxDate = searchParams.get("maxDate")
-  function formatarData(data: Date) {
-    const dia = String(data.getDate()).padStart(2, '0');
-    const mes = String(data.getMonth() + 1).padStart(2, '0');
-    const ano = data.getFullYear();
-
-    return `${dia}/${mes}/${ano}`;
-}
+ 
   return (
     <div>
       {queryMinPrice ? (

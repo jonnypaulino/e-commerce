@@ -73,7 +73,7 @@ const ListProducts = () => {
           value={ordena}
           onChange={(e) => {
             setordena(e.target.value);
-            props.ordenarList(e.target.value.id);
+            props.ordenarList(e.target.value.id, props.products!);
           }}
           placeholder="Ordenar"
           options={[
@@ -103,7 +103,6 @@ const ListProducts = () => {
         <Button
           icon="pi pi-cart-plus"
           onClick={() => history("/cart")}
-          severity="warning"
           label={props.cart?.itens?.length.toString()}
           iconPos="right"
         />

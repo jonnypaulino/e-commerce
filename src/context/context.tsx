@@ -18,7 +18,6 @@ const AplicationProvider = ({ children }: Props) => {
     addAmount,
     filterList,
     toast,
-    filterListName,
     ordenarList,
     CleanFilter,
     FinishBuy
@@ -35,7 +34,6 @@ const AplicationProvider = ({ children }: Props) => {
         addAmount,
         filterList,
         toast,
-        filterListName,
         ordenarList,
         CleanFilter, 
         FinishBuy

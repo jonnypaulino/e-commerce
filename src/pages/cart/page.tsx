@@ -74,8 +74,8 @@ const Cart = () => {
               </h3>
             </Column>
             <Padding />
-            <Row justifyContent="end" style={{ gap: "10px" }}>
-              <Row style={{ gap: "10px" }}>
+            <Row justifyContent="end" style={{ gap: "8px" }}>
+              <Row style={{ gap: "8px" }}>
                 <Button
                   label="Limpar carrinho"
                   severity="danger"
