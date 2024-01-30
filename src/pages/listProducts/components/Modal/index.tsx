@@ -43,7 +43,7 @@ const ModalFilter = ({
     <Dialog
       header="Filtros"
       visible={visible}
-      style={{ width: "50vw" }}
+      style={{  width: window.screen.width < 800 ? "90%" : "50vw" }}
       onHide={onHide}
     >
       <Formik
