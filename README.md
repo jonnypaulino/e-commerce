@@ -32,6 +32,6 @@ npm test
 - PrimeReact: Conjunto de componentes UI para React, oferecendo uma biblioteca de componentes estilizados e responsivos.
 - Testes: Implementados em algumas funções para garantir a qualidade e o correto funcionamento do código.
 
-[Segue deploy: ](https://celebrated-llama-2a36f7.netlify.app/)
+[Deploy](https://celebrated-llama-2a36f7.netlify.app/)
 
 
