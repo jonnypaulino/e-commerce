@@ -58,14 +58,14 @@ const Cart = () => {
             {cep.replace(/\D/g, "").length > 7 ? (
               <Cep cep={cep} setValue={setCepValue} />
             ) : null}
-            <div className="flex-auto"></div>
-            <Padding padding="8px" />
+            <Padding padding="16px" />
             <Column>
               <p>Produtos: R${totalprice?.toFixed(2)}</p>
+              <Padding padding="8px" />
               <p>Frete: R${cepvalue}</p>
-              <Padding />
+              <Padding padding="8px" />
               <div style={{ height: 1, background: "gray" }}></div>
-              <Padding />
+              <Padding padding="8px" />
               <h3>
                 Total: R$
                 {cepvalue
@@ -73,7 +73,7 @@ const Cart = () => {
                   : totalprice?.toFixed(2)}
               </h3>
             </Column>
-            <Padding />
+            <Padding padding="16px" />
             <Row justifyContent="end" style={{ gap: "8px" }}>
               <Row style={{ gap: "8px" }}>
                 <Button
