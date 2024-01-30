@@ -124,7 +124,7 @@ export const StateAplication = () => {
 
     if (name !== "" && name) {
       const filter = newProducts.items?.filter((props) =>
-        props?.name.toLowerCase().includes(name!)
+        props?.name.toLowerCase().includes(name.toLowerCase())
       );
       newProducts = { ...newProducts, items: filter || [] };
       setProducts({ ...newProducts, items: filter || [] });
