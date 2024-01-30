@@ -7,7 +7,7 @@ const useCepFrete = (cep: string) => {
   useEffect(() => {
     const fetchData = async () => {
     try {
-        const cepData = await getCep(cep);
+        const cepData = await getCep(cep.replace(/\D/g, ""));
         setData(cepData);
 
     }catch(e){

@@ -1,3 +1,6 @@
+import { Toast } from "primereact/toast";
+import { RefObject } from "react";
+
 export interface AplicationTypes {
   products?: ProductsJson;
   cart?: CartJson;
@@ -5,10 +8,13 @@ export interface AplicationTypes {
   deleteItemCart: (index: number) => void;
   clearCart: () => void;
   addAmount: (id: number, amount: number) => void;
-  filterList: (values: FilterProductsType) => void;
-  filter: FilterValuesTypes | undefined,
+  filterList: (searchParams: URLSearchParams) => void,
   filterListName: (name: string) => void, 
-  ordenarList: (value: number) => void
+  ordenarList: (value: number) => void,
+  toast: RefObject<Toast>,
+  FinishBuy: () => void
+  CleanFilter: () => void
+
 }
 
 export interface CartJson {

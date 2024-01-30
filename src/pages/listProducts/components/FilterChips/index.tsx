@@ -1,18 +1,34 @@
-import { Card } from "primereact/card";
 import { Chip } from "primereact/chip";
-import { useContext } from "react";
-import { AplicationContext } from "../../../../context/context";
-import { AplicationTypes } from "../../../../types/types";
+import { useLocation } from "react-router-dom";
 
 const FiltperChips = () => {
-  const props = useContext(AplicationContext) as AplicationTypes;
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search);
+
+  const queryMinPrice = searchParams.get("minPrice")
+  const queryMaxPrice = searchParams.get("maxPrice")
+  const queryMinDate = searchParams.get("minDate")
+  const queryMaxDate = searchParams.get("maxDate")
+  function formatarData(data: Date) {
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+
+    return `${dia}/${mes}/${ano}`;
+}
   return (
     <div>
-      {props.filter?.minPrice ? (
-        <Chip label={"Min. Preço: R$" + props.filter?.minPrice} />
+      {queryMinPrice ? (
+        <Chip label={"Min. Preço: R$" + queryMinPrice} />
       ) : null}{" "}
-      {props.filter?.maxPrice ? (
-        <Chip label={"Max. Preço: R$" + props.filter?.maxPrice} />
+      {queryMaxPrice ? (
+        <Chip label={"Max. Preço: R$" + queryMaxPrice} />
+      ) : null}{" "}
+      {queryMinDate ? (
+        <Chip label={"Min. Data: " + formatarData(new Date(queryMinDate))} />
+      ) : null}{" "}
+      {queryMaxDate ? (
+        <Chip label={"Max. Data: " + formatarData(new Date(queryMaxDate))} />
       ) : null}{" "}
     </div>
   );

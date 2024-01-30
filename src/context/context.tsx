@@ -17,9 +17,11 @@ const AplicationProvider = ({ children }: Props) => {
     clearCart,
     addAmount,
     filterList,
-    filter,
+    toast,
     filterListName,
-    ordenarList
+    ordenarList,
+    CleanFilter,
+    FinishBuy
   } = StateAplication();
 
   return (
@@ -32,9 +34,11 @@ const AplicationProvider = ({ children }: Props) => {
         clearCart,
         addAmount,
         filterList,
-        filter,
+        toast,
         filterListName,
-        ordenarList
+        ordenarList,
+        CleanFilter, 
+        FinishBuy
       }}
     >
       {children}

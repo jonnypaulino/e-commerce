@@ -17,6 +17,8 @@ import ModalFilter from "./components/Modal";
 import { Dropdown } from "primereact/dropdown";
 import FiltperChips from "./components/FilterChips";
 import { Form, Formik } from "formik";
+import { Toast } from 'primereact/toast';
+
 
 const ListProducts = () => {
   const history = useNavigate();
@@ -24,7 +26,7 @@ const ListProducts = () => {
   const [visible, setvisible] = useState(false);
   const props = useContext(AplicationContext) as AplicationTypes;
   const searchParams = new URLSearchParams(location.search);
-  const searchQuery = searchParams.get("filterName") || "";
+  const searchQuery = searchParams.get("filtername") || "";
   const [ordena, setordena] = useState({});
   return (
     <Container>
@@ -36,7 +38,7 @@ const ListProducts = () => {
               initialValues={{ filterName: searchQuery }}
               onSubmit={(values) => {
                 values.filterName
-                  ? history(`/?filterName=${values.filterName}`)
+                  ? history(`/?filtername=${values.filterName}`)
                   : history("/");
                 window.location.reload();
               }}
@@ -93,7 +95,7 @@ const ListProducts = () => {
             );
           })}
           {props.products?.items?.length === 0 ? (
-            <h2 style={{ margin: "auto" }}>Sem Pordutos</h2>
+            <h2 style={{ margin: "auto" }}>Sem Produtos</h2>
           ) : null}
         </div>
       </Card>
@@ -107,6 +109,7 @@ const ListProducts = () => {
         />
       </ButtonFloating>
       <ModalFilter visible={visible} onHide={() => setvisible(!visible)} />
+      <Toast ref={props.toast} />
     </Container>
   );
 };

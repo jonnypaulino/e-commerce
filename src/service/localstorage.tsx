@@ -5,7 +5,6 @@ const keyCart = "JSON-CART";
 
 export const SaveCart = (item: CartJson | undefined | string) => {
     const objectString = JSON.stringify(item);
-    console.log(item)
     localStorage.setItem(keyCart, objectString);
 }
 

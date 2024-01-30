@@ -3,14 +3,15 @@ import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
 import { Dialog } from "primereact/dialog";
 import { InputNumber } from "primereact/inputnumber";
-import { useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Padding,
   Row,
   RowReponsive,
 } from "../../../../assets/styles/globalstyles";
-import { AplicationContext } from "../../../../context/context";
 import { AplicationTypes, FilterValuesTypes } from "../../../../types/types";
+import { useContext } from "react";
+import { AplicationContext } from "../../../../context/context";
 
 const ModalFilter = ({
   visible,
@@ -19,12 +20,24 @@ const ModalFilter = ({
   visible: boolean;
   onHide(): void;
 }) => {
-  const props = useContext(AplicationContext) as AplicationTypes;
+  const history = useNavigate();
+  const location = useLocation();
+  const props = useContext(AplicationContext) as AplicationTypes
+  const searchParams = new URLSearchParams(location.search);
 
   const initialValues: FilterValuesTypes = {
-    minPrice: props.filter?.minPrice ?? undefined,
-    maxPrice: props.filter?.maxPrice ?? undefined,
-    dates: props.filter?.dates ?? [],
+    minPrice: searchParams.get("minPrice")
+      ? parseInt(searchParams.get("minPrice")!)
+      : undefined,
+    maxPrice: searchParams.get("maxPrice")
+      ? parseInt(searchParams.get("maxPrice")!)
+      : undefined,
+    dates: searchParams.get("maxDate")!
+      ? [
+          new Date(searchParams.get("minDate")!),
+          new Date(searchParams.get("maxDate")!),
+        ]
+      : [],
   };
   return (
     <Dialog
@@ -36,17 +49,38 @@ const ModalFilter = ({
       <Formik
         initialValues={initialValues}
         onSubmit={(values) => {
-          console.log(values);
-          props.filterList({
-            maxDate: values.dates[1],
-            maxPrice: values.maxPrice,
-            minDate: values.dates[0],
-            minPrice: values.minPrice,
-          });
+          const queryParams: any = {};
+
+          if (values.minPrice !== undefined && values.minPrice !== null) {
+            queryParams.minPrice = values.minPrice.toString();
+          }
+          if (values.maxPrice !== undefined && values.maxPrice !== null) {
+            queryParams.maxPrice = values.maxPrice.toString();
+          }
+
+          if (values.dates[0] !== undefined && values.dates[0] !== null) {
+            queryParams.minDate = values.dates[0].toString();
+          }
+          if (values.dates[1] !== undefined && values.dates[1] !== null) {
+            queryParams.maxDate = values.dates[1].toString();
+          }
+
+          const filtername = searchParams.get("filtername");
+          if (filtername) {
+            queryParams.filtername = filtername;
+          }
+
+          const url = {
+            pathname: "/",
+            search: new URLSearchParams(queryParams).toString(),
+          };
+
+          history(url);
+          onHide();
+          window.location.reload();
         }}
       >
         {({ values, handleChange, setFieldValue }) => {
-          console.log(values);
           return (
             <Form>
               <RowReponsive
@@ -102,7 +136,7 @@ const ModalFilter = ({
               <Padding padding="16px" />
               <Row justifyContent="end" style={{ gap: "8px" }}>
                 <Button label="Aplicar Filtro" />
-                <Button label="Limpar Filtro" severity="danger" type="button" />
+                <Button label="Limpar Filtro" severity="danger" type="button" onClick={props.CleanFilter} />
               </Row>
             </Form>
           );

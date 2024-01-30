@@ -79,3 +79,10 @@ export const ButtonFloating = styled.div`
   right: 20px; 
   z-index: 999;
 `;
+
+export const LengthInputCep = styled.div`
+  width: 30%;
+  @media (max-width: 800px) {
+    width: 70%;
+  }
+`;

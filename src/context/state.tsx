@@ -1,22 +1,49 @@
-import { useEffect, useState } from "react";
+import { Toast } from "primereact/toast";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { RemoveCart, SaveCart, getCart } from "../service/localstorage";
 import {
   CartJson,
   CartProductsType,
-  FilterProductsType,
-  FilterValuesTypes,
-  ProductsJson,
+  ProductsJson
 } from "../types/types";
 import productsjson from "./../data/products.json";
-import { useLocation } from "react-router-dom";
 
 export const StateAplication = () => {
   const [products, setProducts] = useState<ProductsJson | undefined>();
-  const [productsDefault, setProductsDefault] = useState<
-    ProductsJson | undefined
-  >();
+
   const [cart, setCart] = useState<CartJson | undefined>({ itens: [] });
-  const [filter, setFilter] = useState<FilterValuesTypes | undefined>();
+  const toast = useRef<Toast>(null);
+
+  const show = () => {
+    toast.current!.show({
+      severity: "info",
+      summary: "Info",
+      detail: "Item adicionado ao carrinho",
+    });
+  };
+
+  const showBuy = () => {
+    toast.current!.show({
+      severity: "success",
+      summary: "Sucesso",
+      detail: "Compra feita com sucesso",
+    });
+  };
+  const history = useNavigate();
+  const FinishBuy = () => {
+    setCart({ itens: [] });
+    RemoveCart();
+    showBuy();
+    setTimeout(() => {
+      history("/");
+    }, 1600);
+  };
+
+  const CleanFilter = () => {
+    history("/");
+    window.location.reload()
+  };
 
   const location = useLocation();
 
@@ -35,6 +62,7 @@ export const StateAplication = () => {
     }
     setCart(newCart);
     SaveCart(newCart);
+    show();
   };
 
   const addAmount = (id: number, amount: number) => {
@@ -60,32 +88,39 @@ export const StateAplication = () => {
     RemoveCart();
   };
 
-  const filterList = (values: FilterProductsType) => {
-    setProducts(productsjson);
+  const filterList = (searchParams: URLSearchParams) => {
+    const name = searchParams.get("filtername");
 
-    setFilter({
-      dates: values.maxDate ? [values.minDate, values.maxDate] : [],
-      maxPrice: values.maxPrice,
-      minPrice: values.minPrice,
-    });
+    const queryMinPrice = searchParams.get("minPrice");
+    const queryMaxPrice = searchParams.get("maxPrice");
+    const queryMinDate = searchParams.get("minDate");
+    const queryMaxDate = searchParams.get("maxDate");
 
-    const minPrice = values.minPrice || 0;
-    const maxPrice = values.maxPrice || 9999;
+    const minPrice = queryMinPrice ?? 0;
+    const maxPrice = queryMaxPrice ?? 9999;
 
-    const maxData = values.maxDate
-      ? new Date(values.maxDate).getTime()
+    const maxData = queryMaxDate
+      ? new Date(queryMaxDate).getTime()
       : Date.now();
-    const minData = values.minDate
-      ? new Date(values.minDate).getTime()
+    const minData = queryMinDate
+      ? new Date(queryMinDate).getTime()
       : new Date("1990-01-01").getTime();
 
-    const newProducts = { ...productsDefault };
+    var newProducts = { ...productsjson };
+
+    if (name !== "" && name) {
+      const filter = newProducts.items?.filter((props) =>
+        props?.name.toLowerCase().includes(name!)
+      );
+      newProducts = { ...newProducts, items: filter || [] };
+      setProducts({ ...newProducts, items: filter || [] });
+    }
 
     const filter = newProducts.items?.filter((item) => {
       const itemDate = new Date(item.date).getTime();
       return (
-        item.price >= minPrice &&
-        item.price <= maxPrice &&
+        item.price >= parseInt(minPrice.toString()) &&
+        item.price <= parseInt(maxPrice.toString()) &&
         itemDate >= minData &&
         itemDate <= maxData
       );
@@ -108,7 +143,7 @@ export const StateAplication = () => {
   };
 
   const ordenarList = (value: number) => {
-    const newProducts = { ...productsDefault };
+    const newProducts = { ...products };
 
     if (value === 1) {
       setProducts({
@@ -142,14 +177,11 @@ export const StateAplication = () => {
 
   useEffect(() => {
     setProducts(productsjson);
-    setProductsDefault(productsjson);
     const searchParams = new URLSearchParams(location.search);
-    const searchQuery = searchParams.get("filterName");
-    if (searchQuery) {
-      filterListName(searchQuery);
+    if (searchParams) {
+      filterList(searchParams);
     }
   }, []);
-
 
   useEffect(() => {
     if (getCart()) {
@@ -157,8 +189,6 @@ export const StateAplication = () => {
       setCart(storedCartObject);
     }
   }, []);
-
-  
 
   return {
     products,
@@ -168,8 +198,10 @@ export const StateAplication = () => {
     clearCart,
     addAmount,
     filterList,
-    filter,
+    toast,
     filterListName,
     ordenarList,
+    FinishBuy,
+    CleanFilter,
   };
 };
