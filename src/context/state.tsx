@@ -189,7 +189,7 @@ export const StateAplication = () => {
     if (searchParams) {
       filterList(searchParams);
     }
-  }, []);
+  }, [location.search]);
 
   useEffect(() => {
     if (getCart()) {
